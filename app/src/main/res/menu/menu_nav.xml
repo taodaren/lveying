@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/tab_home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/nav_attention"
+        android:icon="@drawable/tab_attention"
+        android:title="@string/title_attention" />
+
+    <item
+        android:id="@+id/nav_record"
+        android:icon="@drawable/tab_recode"
+        android:title="" />
+
+    <item
+        android:id="@+id/nav_device"
+        android:icon="@drawable/tab_device"
+        android:title="@string/title_device" />
+
+    <item
+        android:id="@+id/nav_mine"
+        android:icon="@drawable/tab_mine"
+        android:title="@string/title_mine" />
+
+</menu>

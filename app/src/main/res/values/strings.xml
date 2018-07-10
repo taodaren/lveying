@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Lve Ying</string>
+    <string name="app_name">掠影</string>
+
+    <string name="title_home">首页</string>
+    <string name="title_attention">关注</string>
+    <string name="title_device">设备</string>
+    <string name="title_mine">我的</string>
 </resources>
