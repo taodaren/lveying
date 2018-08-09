@@ -1,24 +1,24 @@
-package com.gongyujia.app.util;
+package net.lueying.s_image.utils;
 
 import android.util.Log;
 
-import com.gongyujia.app.core.App;
+import net.lueying.s_image.core.App;
 
 /**
- * Created by XTF on 2017/5/5.
+ * log工具类
  */
 
 public class LogUtil {
-    
+
     private static boolean isOpen = App.isDebug;
-    private static String tag = "GYJR";
-    
+    private static String tag = "LY";
+
     public static void e(String value) {
         if (isOpen) {
             Log.e(tag, value);
         }
     }
-    
+
     public static void i(String value) {
         if (isOpen) {
             Log.i(tag, value);

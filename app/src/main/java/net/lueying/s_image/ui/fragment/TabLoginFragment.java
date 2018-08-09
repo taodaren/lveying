@@ -1,4 +1,4 @@
-package net.lueying.s_image.fragment;
+package net.lueying.s_image.ui.fragment;
 
 import android.content.Intent;
 import android.view.View;

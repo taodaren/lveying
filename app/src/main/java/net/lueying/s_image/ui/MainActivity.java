@@ -1,4 +1,4 @@
-package net.lueying.s_image.ui.user;
+package net.lueying.s_image.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import net.lueying.s_image.R;
 import net.lueying.s_image.base.BaseActivity;
-import net.lueying.s_image.fragment.TabAttentionFragment;
-import net.lueying.s_image.fragment.TabDeviceFragment;
-import net.lueying.s_image.fragment.TabHomeFragment;
-import net.lueying.s_image.fragment.TabMineFragment;
+import net.lueying.s_image.ui.fragment.TabAttentionFragment;
+import net.lueying.s_image.ui.fragment.TabDeviceFragment;
+import net.lueying.s_image.ui.fragment.TabHomeFragment;
+import net.lueying.s_image.ui.fragment.TabMineFragment;
 
 import java.util.ArrayList;
 import java.util.List;

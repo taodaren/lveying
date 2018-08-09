@@ -1,12 +1,13 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
 /**
  * 服务器返回实体类
  */
 
 public class HttpResult {
+
     private int code;
-    private String msg;
+    private String message;
     private String data;
 
     public int getCode() {
@@ -17,12 +18,12 @@ public class HttpResult {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getData() {
@@ -37,7 +38,7 @@ public class HttpResult {
     public String toString() {
         return "HttpResult{" +
                 "code=" + code +
-                ", msg='" + msg + '\'' +
+                ", message='" + message + '\'' +
                 ", data='" + data + '\'' +
                 '}';
     }

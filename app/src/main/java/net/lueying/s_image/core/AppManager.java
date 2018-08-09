@@ -1,4 +1,4 @@
-package com.gongyujia.app.core;
+package net.lueying.s_image.core;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,11 +8,6 @@ import android.os.Build;
 
 import java.util.Stack;
 
-/**
- * author ATao
- * version 1.0
- * created 2015/9/29
- */
 public class AppManager {
 
 	private static Stack<Activity> activityStack;

@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:orientation="vertical"
+    tools:context=".ui.auth.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="49dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_regist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_regist"
+                android:layout_width="48dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center_horizontal"
+                android:text="注册"
+                android:textColor="@color/colorBlack_333"
+                android:textSize="24sp" />
+
+            <View
+                android:id="@+id/view_regist"
+                android:layout_width="40dp"
+                android:layout_height="5dp"
+                android:layout_below="@+id/tv_regist"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_ovalpoint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="48dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center_horizontal"
+                android:text="登录"
+                android:textColor="@color/colorGray_999"
+                android:textSize="24sp" />
+
+            <View
+                android:id="@+id/view_login"
+                android:layout_width="40dp"
+                android:layout_height="5dp"
+                android:layout_below="@+id/tv_regist"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_ovalpoint"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <net.lueying.s_image.widget.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

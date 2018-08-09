@@ -3,7 +3,7 @@ package net.lueying.s_image.entity;
 /**
  * 登录和注册返回的实体一样
  */
-public class RegisterEntity {
+public class Register {
 
     private String token;
 
@@ -17,7 +17,7 @@ public class RegisterEntity {
 
     @Override
     public String toString() {
-        return "RegisterEntity{" +
+        return "Register{" +
                 "token='" + token + '\'' +
                 '}';
     }

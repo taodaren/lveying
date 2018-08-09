@@ -4,9 +4,7 @@
     android:id="@+id/main_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true"
-    android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <TextView
@@ -22,11 +20,10 @@
         android:id="@+id/img_title_back"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:padding="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:src="@drawable/ic_arrow_left"
+        android:focusable="true"
+        android:padding="8dp"
+        android:src="@mipmap/ic_arrow_left"
         android:visibility="gone"
-        tools:ignore="ContentDescription"
-        android:focusable="true" />
+        tools:ignore="ContentDescription" />
 </android.support.v7.widget.Toolbar>

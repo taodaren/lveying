@@ -1,7 +1,7 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
 
-import com.gongyujia.app.util.NetworkUtil;
+import net.lueying.s_image.utils.NetworkUtil;
 
 import rx.Subscriber;
 
@@ -14,7 +14,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onStart() {
         if (!NetworkUtil.hasInternet()) {
-            onFailed(new ApiException("网络连接失败，请检查网络设置！"));
+            onFailed(new RuntimeException("网络连接失败，请检查网络设置！"));
         }
     }
 
@@ -26,7 +26,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         if (!NetworkUtil.hasInternet()) {
-            onFailed(new ApiException("网络连接失败，请检查网络设置！"));
+            onFailed(new RuntimeException("网络连接失败，请检查网络设置！"));
         } else {
             onFailed(e);
         }

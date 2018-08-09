@@ -1,11 +1,10 @@
-package com.gongyujia.app.util;
+package net.lueying.s_image.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
-
-import com.gongyujia.app.core.App;
+import net.lueying.s_image.core.App;
 
 
 public class NetworkUtil {

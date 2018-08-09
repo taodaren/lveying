@@ -1,4 +1,4 @@
-package net.lueying.s_image.ui;
+package net.lueying.s_image.ui.auth;
 
 
 import android.text.Editable;
@@ -74,7 +74,7 @@ public class ChangePswActivity extends BaseActivity {
     }
 
     /**
-     * 检查号码尾数
+     * 检查号码位数
      *
      * @param phone
      */
@@ -95,59 +95,43 @@ public class ChangePswActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_getverification, R.id.btn_submit})
+    @OnClick({R.id.btn_getverification, R.id.btn_submit, R.id.img_title_back})
     public void onClick(View view) {
-        Map<String, String> map = new HashMap<>();
         switch (view.getId()) {
             case R.id.btn_getverification:
-                map.clear();
-                try {
-                    String iv = Encryption.newIv();
-                    String phone = Encryption.encrypt(et_phone.getText().toString(), iv);
-                    map.put("mobile", phone);
-                    map.put("iv", iv);
-                    mCompositeSubscription.add(UserLogic.sendMsg(map)
-                            .subscribe(new BaseSubscriber<HttpResult>() {
-                                           @Override
-                                           public void onSuccess(HttpResult s) {
-                                               ToastUtil.showShort(context, "短信已发送");
-                                           }
-
-                                           @Override
-                                           public void onFailed(Throwable e) {
-                                               ToastUtil.showShort(context, e.getMessage());
-                                           }
-                                       }
-                            ));
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    openTimer();
-                }
+                sendMsg();//发送短信
                 break;
             case R.id.btn_submit:
-                map.clear();
-                String phone = et_phone.getText().toString().trim();
-                String password = et_paseword.getText().toString().trim();
-                String code = et_verification.getText().toString().trim();
+                submit();//确认
+                break;
+            case R.id.img_title_back:
+                finish();
+                break;
+        }
+    }
 
-                if (phone == null || phone.length() != 11) {
-                    ToastUtil.showShort(context, "手机号码有误");
-                    return;
-                }
-                if (code == null || code.length() != 4) {
-                    ToastUtil.showShort(context, "验证码有误");
-                    return;
-                }
-                if (password == null || password.length() < 6) {
-                    ToastUtil.showShort(context, "密码有误");
-                    return;
-                }
-                map.put("code", code);
-                map.put("password", password);
-                map.put("mobile", phone);
-                map.put("device", App.getApplication().getAndroidID());
+    private void submit() {
+        Map<String, String> map = new HashMap<>();
+        String phone = et_phone.getText().toString().trim();
+        String password = et_paseword.getText().toString().trim();
+        String code = et_verification.getText().toString().trim();
+
+        if (phone == null || phone.length() != 11) {
+            ToastUtil.showShort(context, "手机号码有误");
+            return;
+        }
+        if (code == null || code.length() != 4) {
+            ToastUtil.showShort(context, "验证码有误");
+            return;
+        }
+        if (password == null || password.length() < 6) {
+            ToastUtil.showShort(context, "密码有误");
+            return;
+        }
+        map.put("code", code);
+        map.put("password", password);
+        map.put("mobile", phone);
+        map.put("device", App.getApplication().getAndroidID());
 
 //                mCompositeSubscription.add(UserLogic.register(map).subscribe(new BaseSubscriber<Register>() {
 //                    @Override
@@ -170,7 +154,34 @@ public class ChangePswActivity extends BaseActivity {
 //                        ToastUtil.showShort(context, e.getMessage());
 //                    }
 //                }));
-                break;
+
+    }
+
+    private void sendMsg() {
+        Map<String, String> map = new HashMap<>();
+        try {
+            String iv = Encryption.newIv();
+            String phone = Encryption.encrypt(et_phone.getText().toString(), iv);
+            map.put("mobile", phone);
+            map.put("iv", iv);
+            mCompositeSubscription.add(UserLogic.sendMsg(map)
+                    .subscribe(new BaseSubscriber<HttpResult>() {
+                                   @Override
+                                   public void onSuccess(HttpResult s) {
+                                       ToastUtil.showShort(context, "短信已发送");
+                                   }
+
+                                   @Override
+                                   public void onFailed(Throwable e) {
+                                       ToastUtil.showShort(context, e.getMessage());
+                                   }
+                               }
+                    ));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            openTimer();
         }
     }
 

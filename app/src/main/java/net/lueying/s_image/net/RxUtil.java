@@ -1,4 +1,4 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -6,7 +6,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Description: RxUtil
- * Creator: yxc
+ * Creator: xxl
  * date: 2016/9/21 18:47
  */
 public class RxUtil {

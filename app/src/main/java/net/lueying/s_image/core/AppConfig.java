@@ -1,4 +1,4 @@
-package com.gongyujia.app.core;
+package net.lueying.s_image.core;
 
 import android.content.Context;
 import android.os.Environment;
@@ -9,9 +9,7 @@ import java.io.FileOutputStream;
 import java.util.Properties;
 
 /**
- * author ATao
- * version 1.0
- * created 2015/10/14
+ * app配置文件
  */
 public class AppConfig {
 
@@ -21,53 +19,25 @@ public class AppConfig {
     private Context mContext;
     private static AppConfig instance;
 
-    // 默认存放图片的路径
-    public final static String DEFAULT_SAVE_IMAGE_PATH = Environment
-            .getExternalStorageDirectory()
-            + File.separator
-            + "gyj"
-            + File.separator + "img" + File.separator;
-
-    // 存放Fresco图片缓存的路径
-    public final static String FRESCO_SAVE_IMAGE_PATH = Environment
-            .getExternalStorageDirectory()
-            + File.separator
-            + "gyj"
-            + File.separator + "fresco_img" + File.separator;
-
-    // 存放上传裁切图片的路径
-    public final static String CROP_SAVE_IMAGE_PATH = Environment
-            .getExternalStorageDirectory()
-            + File.separator
-            + "gyj"
-            + File.separator + "crop_img" + File.separator;
-
-    // 默认存放文件下载的路径
-    public final static String DEFAULT_SAVE_FILE_PATH = Environment
-            .getExternalStorageDirectory()
-            + File.separator
-            + "gyj"
-            + File.separator + "download" + File.separator;
-
     // 日志文件的路径
     public final static String DEFAULT_SAVE_LOG_FILE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "gyj"
+            + "LveYing"
             + File.separator + "log" + File.separator;
 
     // WebView缓存的路径
     public final static String WEBVIEW_CACHE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "gyj"
-            + File.separator + "WebView" + File.separator;
+            + "LveYing"
+            + File.separator + "webview" + File.separator;
 
     //存放视频文件的路径
     public final static String DEFAULT_SAVE_VIDEO_FILE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "gyj"
+            + "LveYing"
             + File.separator + "video" + File.separator;
 
     public static AppConfig getInstance(Context context) {

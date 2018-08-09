@@ -1,12 +1,7 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.gongyujia.app.BuildConfig;
-import com.gongyujia.app.constant.UserConstant;
-import com.gongyujia.app.core.App;
-import com.gongyujia.app.util.CyptoUtil;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -25,49 +20,19 @@ import okio.Buffer;
 import okio.BufferedSource;
 
 /**
- * Created by jt on 2016/10/26.
  */
 public class HttpInterceptor implements Interceptor {
 
     private static final String TAG = "HttpClient";
-    private static final Charset UTF8 = Charset.forName("UTF-8");
-    private boolean isDebug = (BuildConfig.BUILD_TYPE == "debug");
-    public final static String PRIVATE_TOKEN_KEY = "private-token";
+    private boolean isDebug = true;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        String token = App.getApplication().getConfig(UserConstant.TOKEN);
-        if (token != null && !TextUtils.isEmpty(token)) {
-            token = CyptoUtil.decode(UserConstant.TOKEN, token);
-        } else {
-            token = "";
-        }
         Request request = chain.request();
-        if (request.body() instanceof FormBody) {
-            FormBody.Builder bodyBuilder = new FormBody.Builder();
-            FormBody formBody = (FormBody) request.body();
-
-            //把原来的参数添加到新的构造器，（因为没找到直接添加，所以就new新的）
-            for (int i = 0; i < formBody.size(); i++) {
-                bodyBuilder.addEncoded(formBody.encodedName(i), formBody.encodedValue(i));
-            }
-
-            formBody = bodyBuilder
-                    .addEncoded(UserConstant.APP_ID, "0008")
-                    .addEncoded(UserConstant.TOKEN, token)
-                    .addEncoded(UserConstant.CITY_ID, App.getApplication().getCurrentCitiId() + "")
-                    .addEncoded(UserConstant.SIGN, CyptoUtil.encodeByMd5("0008GYJANDRIODPWD"))
-                    .addEncoded(UserConstant.VERSION, "10")
-                    .addEncoded(UserConstant.UDID, App.getApplication().getAppId())
-                    .build();
-
-            request = request.newBuilder().post(formBody).build();
-        }
 
         if (!isDebug) {
             return chain.proceed(request);
         }
-
         //the request url
         String url = request.url().toString();
         //the request method
@@ -148,15 +113,5 @@ public class HttpInterceptor implements Interceptor {
     private boolean bodyEncoded(Headers headers) {
         String contentEncoding = headers.get("Content-Encoding");
         return contentEncoding != null && !contentEncoding.equalsIgnoreCase("identity");
-    }
-
-    public static String getUserAgent() {
-        StringBuilder ua = new StringBuilder("yopark.com");
-        ua.append("/appVersion=" + App.getApplication().getPackageInfo().versionName + '_' + App.getApplication().getPackageInfo().versionCode);//App版本
-        ua.append("/os=Android");
-        ua.append("/version=" + android.os.Build.VERSION.RELEASE);//手机系统版本
-        ua.append("/model=" + android.os.Build.MODEL); //手机型号
-        ua.append("/appId=" + App.getApplication().getAppId());//客户端唯一标识
-        return ua.toString();
     }
 }

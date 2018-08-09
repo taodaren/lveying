@@ -1,8 +1,6 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
-
-
-import com.gongyujia.app.core.App;
+import net.lueying.s_image.core.App;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

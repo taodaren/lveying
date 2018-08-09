@@ -1,6 +1,7 @@
-package cn.eejing.ejcolorflower.util;
+package net.lueying.s_image.utils;
 
 import android.util.Base64;
+import android.util.Log;
 
 import java.security.SecureRandom;
 
@@ -9,12 +10,11 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Encryption {
-    private final static String KEY = "0253872624409878";
-
+    private final static String KEY = "ThisIsKey\0\0\0\0\0\0\0";
+    private static int length = 20;
     private static byte[] encrypt(byte[] dataBytes, byte[] iv) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
         int blockSize = cipher.getBlockSize();
-
         int plaintextLength = dataBytes.length;
         if (plaintextLength % blockSize != 0) {
             plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
@@ -22,7 +22,6 @@ public class Encryption {
 
         byte[] plaintext = new byte[plaintextLength];
         System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
-
         SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), "AES");
         IvParameterSpec ivSpec = new IvParameterSpec(iv);
 

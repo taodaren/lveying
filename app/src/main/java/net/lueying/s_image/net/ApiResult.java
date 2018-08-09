@@ -1,4 +1,4 @@
-package com.gongyujia.app.api;
+package net.lueying.s_image.net;
 
 
 import com.alibaba.fastjson.JSON;
@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import rx.functions.Func1;
 
 /**
- * Created by jt on 2016/10/26.
+ * 请求实体
  */
 public class ApiResult<T> implements Func1<HttpResult, T> {
 
@@ -24,17 +24,17 @@ public class ApiResult<T> implements Func1<HttpResult, T> {
 
     @Override
     public T call(HttpResult httpResult) {
-        if (httpResult.getCode() == 200) {
+        if (httpResult.getCode() == 1) {
             if (clazz == String.class) {
                 if(isMsg){
-                    return (T) httpResult.getMsg();
+                    return (T) httpResult.getMessage();
                 }
                 return (T) httpResult.getData();
             } else {
                 return JSON.parseObject(httpResult.getData(), clazz);
             }
         } else {
-            throw new ApiException(httpResult.getMsg());
+            throw new RuntimeException(httpResult.getMessage());
         }
     }
 
