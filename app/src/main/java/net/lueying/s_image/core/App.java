@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 
 import net.lueying.s_image.constant.UserConstant;
 import net.lueying.s_image.entity.LoginUser;
+import net.lueying.s_image.utils.Encryption;
 
 import java.util.Properties;
 
@@ -28,8 +29,8 @@ public class App extends Application {
         super.onCreate();
         mApplication = this;
         isDebug = checkDebug(mApplication);
-        Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
-
+//        Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
+        initUser();
         initDisplay();
     }
 
@@ -90,6 +91,22 @@ public class App extends Application {
         return res;
     }
 
+    /**
+     * 单独获取加密过的值
+     *
+     * @param key
+     * @return
+     */
+    public String getEncryptConfig(String key) {
+        String res = "";
+        try {
+            res = Encryption.decrypt(AppConfig.getInstance(this).get(key),UserConstant.IV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public void initUser() {
         loginUser = getLoginInfo();
         if (!TextUtils.isEmpty(getConfig(UserConstant.TOKEN))) {
@@ -101,6 +118,7 @@ public class App extends Application {
 
     /**
      * 是否登录
+     *
      * @return
      */
     public boolean isLogin() {

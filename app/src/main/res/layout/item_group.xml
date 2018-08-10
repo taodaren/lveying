@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/iv_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="7dp"
+            android:src="@mipmap/ic_add_group" />
+
+        <ImageView
+            android:id="@+id/iv_isusable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_group"
+            android:layout_alignRight="@id/iv_group"
+            android:layout_marginBottom="2dp"
+            android:src="@mipmap/ic_unusable"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_groupname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_group"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:ellipsize="end"
+        android:maxLength="5"
+        android:maxLines="1"
+        android:text="添加设备群" />
+
+</RelativeLayout>

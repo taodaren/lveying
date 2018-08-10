@@ -30,4 +30,9 @@ public interface ApiService {
     @POST("login")
     @FormUrlEncoded
     Observable<HttpResult> login(@FieldMap Map<String, String> map);
+
+    //设备首页
+    @POST("deviceIndex")
+    @FormUrlEncoded
+    Observable<HttpResult> deviceIndex(@FieldMap Map<String, String> map);
 }

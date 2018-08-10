@@ -1,5 +1,6 @@
 package net.lueying.s_image.ui.fragment;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,10 +11,13 @@ import net.lueying.s_image.R;
 import net.lueying.s_image.base.BaseFragment;
 import net.lueying.s_image.constant.UserConstant;
 import net.lueying.s_image.core.App;
+import net.lueying.s_image.core.AppManager;
 import net.lueying.s_image.entity.Register;
 import net.lueying.s_image.logic.UserLogic;
 import net.lueying.s_image.net.BaseSubscriber;
 import net.lueying.s_image.net.HttpResult;
+import net.lueying.s_image.ui.MainActivity;
+import net.lueying.s_image.ui.auth.LoginActivity;
 import net.lueying.s_image.utils.Encryption;
 import net.lueying.s_image.utils.LogUtil;
 import net.lueying.s_image.utils.ToastUtil;
@@ -96,81 +100,96 @@ public class TabRegistFragment extends BaseFragment {
 
     @OnClick({R.id.btn_getverification, R.id.btn_submit})
     public void onClick(View view) {
-        Map<String, String> map = new HashMap<>();
         switch (view.getId()) {
             case R.id.btn_getverification:
-                map.clear();
-                try {
-                    String iv = Encryption.newIv();
-                    String phone = Encryption.encrypt(et_phone.getText().toString(), iv);
-                    map.put("mobile", phone);
-                    map.put("iv", iv);
-                    mCompositeSubscription.add(UserLogic.sendMsg(map)
-                            .subscribe(new BaseSubscriber<HttpResult>() {
-                                           @Override
-                                           public void onSuccess(HttpResult s) {
-                                               ToastUtil.showShort(context, "短信已发送");
-                                           }
-
-                                           @Override
-                                           public void onFailed(Throwable e) {
-                                               ToastUtil.showShort(context, e.getMessage());
-                                           }
-                                       }
-                            ));
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    openTimer();
-                }
+                senMsg();
                 break;
             case R.id.btn_submit:
-                map.clear();
-                String phone = et_phone.getText().toString().trim();
-                String password = et_paseword.getText().toString().trim();
-                String code = et_verification.getText().toString().trim();
-
-                if (phone == null || phone.length() != 11) {
-                    ToastUtil.showShort(context, "手机号码有误");
-                    return;
-                }
-                if (code == null || code.length() != 4) {
-                    ToastUtil.showShort(context, "验证码有误");
-                    return;
-                }
-                if (password == null || password.length() < 6) {
-                    ToastUtil.showShort(context, "密码有误");
-                    return;
-                }
-                map.put("code", code);
-                map.put("password", password);
-                map.put("mobile", phone);
-                map.put("device", App.getApplication().getAndroidID());
-
-                mCompositeSubscription.add(UserLogic.register(map).subscribe(new BaseSubscriber<Register>() {
-                    @Override
-                    public void onSuccess(Register s) {
-                        ToastUtil.showShort(context,"注册成功");
-                        if (s != null) {
-                            //本地化用户登录信息
-                            App.getApplication().setConfigs(new Properties() {{
-                                try {
-                                    setProperty(UserConstant.TOKEN, Encryption.encrypt(s.getToken(), UserConstant.IV));
-                                    App.getApplication().initUser();
-                                } catch (Exception e) {
-                                    LogUtil.e("加密异常:" + e.getMessage());
-                                }
-                            }});
-                        }
-                    }
-
-                    @Override
-                    public void onFailed(Throwable e) {
-                        ToastUtil.showShort(context, e.getMessage());
-                    }
-                }));
+                submit();
                 break;
+        }
+    }
+
+    private void submit() {
+        Map<String, String> map = new HashMap<>();
+        String phone = et_phone.getText().toString().trim();
+        String password = et_paseword.getText().toString().trim();
+        String code = et_verification.getText().toString().trim();
+
+        if (phone == null || phone.length() != 11) {
+            ToastUtil.showShort(context, "手机号码有误");
+            return;
+        }
+        if (code == null || code.length() != 4) {
+            ToastUtil.showShort(context, "验证码有误");
+            return;
+        }
+        if (password == null || password.length() < 6) {
+            ToastUtil.showShort(context, "密码有误");
+            return;
+        }
+        try {
+            String iv = Encryption.newIv();
+            map.put("code", code);
+            map.put("password", Encryption.encrypt(password, iv));
+            map.put("mobile", phone);
+            map.put("iv", iv);
+            map.put("device", App.getApplication().getAndroidID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mCompositeSubscription.add(UserLogic.register(map).subscribe(new BaseSubscriber<Register>() {
+            @Override
+            public void onSuccess(Register s) {
+                ToastUtil.showShort(context, "注册成功");
+                if (s != null) {
+                    //本地化用户登录信息
+                    App.getApplication().setConfigs(new Properties() {{
+                        try {
+                            setProperty(UserConstant.TOKEN, Encryption.encrypt(s.getToken(), UserConstant.IV));
+                        } catch (Exception e) {
+                            LogUtil.e("加密异常:" + e.getMessage());
+                        }
+                    }});
+                    App.getApplication().initUser();
+                    startActivity(new Intent(context, MainActivity.class));
+                    AppManager.getAppManager().finishActivity(LoginActivity.class);
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                ToastUtil.showShort(context, e.getMessage());
+            }
+        }));
+    }
+
+    private void senMsg() {
+        Map<String, String> map = new HashMap<>();
+        try {
+            String iv = Encryption.newIv();
+            String phone = Encryption.encrypt(et_phone.getText().toString(), iv);
+            map.put("mobile", phone);
+            map.put("iv", iv);
+            mCompositeSubscription.add(UserLogic.sendMsg(map)
+                    .subscribe(new BaseSubscriber<HttpResult>() {
+                                   @Override
+                                   public void onSuccess(HttpResult s) {
+                                       ToastUtil.showShort(context, "短信已发送");
+                                   }
+
+                                   @Override
+                                   public void onFailed(Throwable e) {
+                                       ToastUtil.showShort(context, e.getMessage());
+                                   }
+                               }
+                    ));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            openTimer();
         }
     }
 

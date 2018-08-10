@@ -133,28 +133,6 @@ public class ChangePswActivity extends BaseActivity {
         map.put("mobile", phone);
         map.put("device", App.getApplication().getAndroidID());
 
-//                mCompositeSubscription.add(UserLogic.register(map).subscribe(new BaseSubscriber<Register>() {
-//                    @Override
-//                    public void onSuccess(Register s) {
-//                        if (s != null) {
-//                            //本地化用户登录信息
-//                            App.getApplication().setConfigs(new Properties() {{
-//                                try {
-//                                    setProperty(UserConstant.TOKEN, Encryption.encrypt(s.getToken(), UserConstant.IV));
-//                                    App.getApplication().initUser();
-//                                } catch (Exception e) {
-//                                    LogUtil.e("加密异常:" + e.getMessage());
-//                                }
-//                            }});
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailed(Throwable e) {
-//                        ToastUtil.showShort(context, e.getMessage());
-//                    }
-//                }));
-
     }
 
     private void sendMsg() {

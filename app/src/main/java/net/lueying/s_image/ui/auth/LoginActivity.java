@@ -11,6 +11,7 @@ import net.lueying.s_image.R;
 import net.lueying.s_image.adapter.LoginFragmentAda;
 import net.lueying.s_image.base.BaseActivity;
 import net.lueying.s_image.core.App;
+import net.lueying.s_image.core.AppManager;
 import net.lueying.s_image.ui.fragment.TabLoginFragment;
 import net.lueying.s_image.ui.fragment.TabRegistFragment;
 import net.lueying.s_image.ui.MainActivity;
@@ -41,16 +42,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected int layoutViewId() {
-        return R.layout.activity_login;
-    }
-
-    @Override
-    public void init() {
-        super.init();
         //需要判断登陆状态确定是否进入主页面
         if (App.getApplication().isLogin()) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
+        return R.layout.activity_login;
     }
 
     @Override
@@ -117,5 +114,4 @@ public class LoginActivity extends BaseActivity {
     public void initData() {
         super.initData();
     }
-
 }

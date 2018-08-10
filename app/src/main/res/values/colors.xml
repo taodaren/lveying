@@ -8,6 +8,8 @@
     <color name="colorBlue">#69b1bf</color>
     <color name="colorOrange">#d9934d</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite_f6f">#f6f6f6</color>
+    <color name="colorWhite_f8f">#f8f8f8</color>
     <color name="colorRed">#ff0000</color>
     <color name="colorGray">#d9d9d9</color>
     <color name="colorGray_999">#999999</color>
