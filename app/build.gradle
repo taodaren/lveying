@@ -37,6 +37,8 @@ dependencies {
     implementation 'io.reactivex:rxjava:1.1.6'
     implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    //socket相关
+    implementation 'com.koushikdutta.async:androidasync:2.+'
     // json 解析
     implementation 'com.google.code.gson:gson:2.8.4'
     // Butter Knife

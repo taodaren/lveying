@@ -15,6 +15,12 @@ import com.jaeger.library.StatusBarUtil;
 
 import net.lueying.s_image.R;
 import net.lueying.s_image.core.AppManager;
+import net.lueying.s_image.entity.MessageEvent;
+import net.lueying.s_image.entity.Register;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import rx.subscriptions.CompositeSubscription;
@@ -26,6 +32,7 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseActivity extends AppCompatActivity {
     protected CompositeSubscription mCompositeSubscription;
     protected Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         initView();
         initListener();
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -81,6 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mCompositeSubscription != null && !mCompositeSubscription.isUnsubscribed()) {
             mCompositeSubscription.unsubscribe();
         }
+        EventBus.getDefault().unregister(this);
         AppManager.getAppManager().finishActivity(this);
     }
 
@@ -115,6 +124,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    /**
+     * 实时接收socket数据更新ui
+     *
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(MessageEvent msg) {
+
     }
 
 }

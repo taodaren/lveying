@@ -9,6 +9,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- android.permission.VIBRATE允许访问震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- android.permission.FLASHLIGHT允许访问闪光灯的权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".core.App"
@@ -28,7 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.auth.ChangePswActivity"></activity>
+        <activity android:name=".ui.auth.ChangePswActivity" />
+        <activity android:name=".ui.common.QuickMarkActivity"></activity>
     </application>
 
 </manifest>

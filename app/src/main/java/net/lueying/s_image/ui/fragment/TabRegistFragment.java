@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import net.lueying.s_image.R;
 import net.lueying.s_image.base.BaseFragment;
-import net.lueying.s_image.constant.UserConstant;
+import net.lueying.s_image.constant.CommonConstant;
 import net.lueying.s_image.core.App;
 import net.lueying.s_image.core.AppManager;
 import net.lueying.s_image.entity.Register;
@@ -147,7 +147,7 @@ public class TabRegistFragment extends BaseFragment {
                     //本地化用户登录信息
                     App.getApplication().setConfigs(new Properties() {{
                         try {
-                            setProperty(UserConstant.TOKEN, Encryption.encrypt(s.getToken(), UserConstant.IV));
+                            setProperty(CommonConstant.TOKEN, Encryption.encrypt(s.getToken(), CommonConstant.IV));
                         } catch (Exception e) {
                             LogUtil.e("加密异常:" + e.getMessage());
                         }

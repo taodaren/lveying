@@ -15,6 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.lueying.s_image.R;
+import net.lueying.s_image.entity.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import rx.subscriptions.CompositeSubscription;
@@ -63,6 +68,7 @@ public abstract class BaseFragment extends Fragment {
         initToolbar();
         initData();
         initListener();
+        EventBus.getDefault().register(this);
     }
 
     public void initToolbar() {
@@ -73,6 +79,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void initListener() {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -108,4 +120,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 实时接收socket数据更新ui
+     *
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(MessageEvent msg) {
+
+    }
 }

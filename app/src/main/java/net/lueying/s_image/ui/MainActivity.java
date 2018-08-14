@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
         });
 
         // 默认选中
-        mBottomNav.getMenu().getItem(3).setChecked(true);
+        mBottomNav.getMenu().getItem(1).setChecked(true);
     }
 
     /**

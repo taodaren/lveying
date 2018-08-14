@@ -9,19 +9,15 @@ import android.widget.EditText;
 
 import net.lueying.s_image.R;
 import net.lueying.s_image.base.BaseActivity;
-import net.lueying.s_image.constant.UserConstant;
 import net.lueying.s_image.core.App;
-import net.lueying.s_image.entity.Register;
 import net.lueying.s_image.logic.UserLogic;
 import net.lueying.s_image.net.BaseSubscriber;
 import net.lueying.s_image.net.HttpResult;
 import net.lueying.s_image.utils.Encryption;
-import net.lueying.s_image.utils.LogUtil;
 import net.lueying.s_image.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;

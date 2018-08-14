@@ -22,11 +22,12 @@ public class ApiResult<T> implements Func1<HttpResult, T> {
         this.isMsg = isMsg;
     }
 
+
     @Override
     public T call(HttpResult httpResult) {
         if (httpResult.getCode() == 1) {
             if (clazz == String.class) {
-                if(isMsg){
+                if (isMsg) {
                     return (T) httpResult.getMessage();
                 }
                 return (T) httpResult.getData();
@@ -34,7 +35,7 @@ public class ApiResult<T> implements Func1<HttpResult, T> {
                 return JSON.parseObject(httpResult.getData(), clazz);
             }
         } else {
-            throw new RuntimeException(httpResult.getMessage());
+            throw new ApiException(httpResult.getCode(),httpResult.getMessage(), httpResult.getData());
         }
     }
 

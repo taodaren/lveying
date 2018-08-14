@@ -9,7 +9,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
-import net.lueying.s_image.constant.UserConstant;
+import net.lueying.s_image.constant.CommonConstant;
 import net.lueying.s_image.entity.LoginUser;
 import net.lueying.s_image.utils.Encryption;
 
@@ -29,7 +29,7 @@ public class App extends Application {
         super.onCreate();
         mApplication = this;
         isDebug = checkDebug(mApplication);
-//        Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
+//        Thread.setDefaultUncaughtExceptionHandler(ApiException.getAppExceptionHandler());
         initUser();
         initDisplay();
     }
@@ -100,7 +100,7 @@ public class App extends Application {
     public String getEncryptConfig(String key) {
         String res = "";
         try {
-            res = Encryption.decrypt(AppConfig.getInstance(this).get(key),UserConstant.IV);
+            res = Encryption.decrypt(AppConfig.getInstance(this).get(key), CommonConstant.IV);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,12 +109,14 @@ public class App extends Application {
 
     public void initUser() {
         loginUser = getLoginInfo();
-        if (!TextUtils.isEmpty(getConfig(UserConstant.TOKEN))) {
+        if (!TextUtils.isEmpty(getConfig(CommonConstant.TOKEN))) {
             isLogin = true;
         } else {
             logout();
         }
     }
+
+
 
     /**
      * 是否登录
@@ -132,7 +134,7 @@ public class App extends Application {
      */
     public LoginUser getLoginInfo() {
         LoginUser user = new LoginUser();
-        user.setToken(getConfig(UserConstant.TOKEN));
+        user.setToken(getConfig(CommonConstant.TOKEN));
         return user;
     }
 
@@ -140,7 +142,7 @@ public class App extends Application {
      * 登出
      */
     public void logout() {
-        removeConfig(UserConstant.TOKEN
+        removeConfig(CommonConstant.TOKEN
         );
         isLogin = false;
         loginUser = null;
