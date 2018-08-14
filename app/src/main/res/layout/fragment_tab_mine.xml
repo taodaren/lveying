@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TabMineFragment">
+    tools:context=".ui.fragment.TabMineFragment">
 
     <include layout="@layout/layout_toolbar" />
 

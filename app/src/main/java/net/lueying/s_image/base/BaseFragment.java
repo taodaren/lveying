@@ -1,5 +1,7 @@
 package net.lueying.s_image.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +15,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.lueying.s_image.R;
+import net.lueying.s_image.entity.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * BaseFragment
@@ -22,6 +30,14 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
     private View mRootView;
+    protected CompositeSubscription mCompositeSubscription;
+    protected Context context;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = activity;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +53,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // 子类不再需要设置布局 ID，也不再需要使用 ButterKnife.BindView()
         mRootView = inflater.inflate(layoutViewId(), container, false);
+        mCompositeSubscription = new CompositeSubscription();
         ButterKnife.bind(this, mRootView);
         initView(mRootView);
         return mRootView;
@@ -51,6 +68,7 @@ public abstract class BaseFragment extends Fragment {
         initToolbar();
         initData();
         initListener();
+        EventBus.getDefault().register(this);
     }
 
     public void initToolbar() {
@@ -61,6 +79,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void initListener() {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -96,4 +120,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 实时接收socket数据更新ui
+     *
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(MessageEvent msg) {
+
+    }
 }

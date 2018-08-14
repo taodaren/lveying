@@ -1,6 +1,7 @@
 package net.lueying.s_image.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,33 +14,41 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 
 import net.lueying.s_image.R;
+import net.lueying.s_image.core.AppManager;
+import net.lueying.s_image.entity.MessageEvent;
+import net.lueying.s_image.entity.Register;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * BaseActivity
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private static Map<String, Activity> activityMap = new HashMap<>();
+    protected CompositeSubscription mCompositeSubscription;
+    protected Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         init();
-
         // 子类不再需要设置布局 ID，也不再需要使用 ButterKnife.BindView()
         setContentView(layoutViewId());
         ButterKnife.bind(this);
-
+        context = this;
+        mCompositeSubscription = new CompositeSubscription();
         initToolbar();
         setStatusBar();
         initData();
         initView();
         initListener();
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -52,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 沉浸式状态栏
      */
     protected void setStatusBar() {
-        StatusBarUtil.setColorNoTranslucent(this, getResources().getColor(R.color.colorPrimary));
+        StatusBarUtil.setTranslucentDiff(this);
     }
 
     public void initToolbar() {
@@ -74,31 +83,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract int layoutViewId();
 
-    public void jumpToActivity(Intent intent) {
-        startActivity(intent);
-    }
-
-    public void jumpToActivity(Class activity) {
-        Intent intent = new Intent(this, activity);
-        startActivity(intent);
-    }
-
-    public static void addActivity(String key, Activity activity) {
-        if (activityMap.get(key) == null) {
-            activityMap.put(key, activity);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCompositeSubscription != null && !mCompositeSubscription.isUnsubscribed()) {
+            mCompositeSubscription.unsubscribe();
         }
-    }
-
-    public static void delActivity(String key) {
-        Activity activity = activityMap.get(key);
-        if (activity != null) {
-            if (activity.isDestroyed() || activity.isFinishing()) {
-                activityMap.remove(key);
-                return;
-            }
-            activity.finish();
-            activityMap.remove(key);
-        }
+        EventBus.getDefault().unregister(this);
+        AppManager.getAppManager().finishActivity(this);
     }
 
     /**
@@ -132,6 +124,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    /**
+     * 实时接收socket数据更新ui
+     *
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(MessageEvent msg) {
+
     }
 
 }

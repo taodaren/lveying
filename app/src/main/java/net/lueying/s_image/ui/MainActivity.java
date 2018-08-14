@@ -1,4 +1,4 @@
-package net.lueying.s_image;
+package net.lueying.s_image.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,11 +12,12 @@ import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import net.lueying.s_image.R;
 import net.lueying.s_image.base.BaseActivity;
-import net.lueying.s_image.fragment.TabAttentionFragment;
-import net.lueying.s_image.fragment.TabDeviceFragment;
-import net.lueying.s_image.fragment.TabHomeFragment;
-import net.lueying.s_image.fragment.TabMineFragment;
+import net.lueying.s_image.ui.fragment.TabAttentionFragment;
+import net.lueying.s_image.ui.fragment.TabDeviceFragment;
+import net.lueying.s_image.ui.fragment.TabHomeFragment;
+import net.lueying.s_image.ui.fragment.TabMineFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseActivity {
         });
 
         // 默认选中
-        mBottomNav.getMenu().getItem(3).setChecked(true);
+        mBottomNav.getMenu().getItem(1).setChecked(true);
     }
 
     /**

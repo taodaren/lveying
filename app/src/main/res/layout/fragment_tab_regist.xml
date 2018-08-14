@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="54dp"
+        android:layout_marginTop="62dp"
+        android:orientation="vertical">
+
+        <net.lueying.s_image.widget.ClearEditText
+            android:id="@+id/et_phone"
+            style="@style/inputStyle"
+            android:hint="手机号"
+            android:inputType="phone"
+            android:maxLength="11" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#33333333" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="54dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_verification"
+                style="@style/inputStyle"
+                android:layout_width="200dp"
+                android:layout_height="44dp"
+                android:layout_margin="1dp"
+                android:hint="验证码"
+                android:inputType="number"
+                android:maxLength="4" />
+
+            <Button
+                android:id="@+id/btn_getverification"
+                android:layout_width="64dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/shape_bg_submit_gray"
+                android:maxLines="1"
+                android:padding="1dp"
+                android:text="获取验证码"
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#33333333" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="54dp"
+        android:orientation="vertical">
+
+        <net.lueying.s_image.widget.ClearEditText
+            android:id="@+id/et_paseword"
+            style="@style/inputStyle"
+            android:hint="密码(6位或以上)"
+            android:inputType="textPassword" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:background="#33333333" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="266dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_submit_selector"
+        android:text="注册"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册即表示你同意"
+            android:textColor="@color/colorGray_999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="用户协议"
+            android:textColor="@color/colorGray_151"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
